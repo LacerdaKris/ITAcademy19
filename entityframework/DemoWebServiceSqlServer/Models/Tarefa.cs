@@ -1,3 +1,5 @@
+namespace DemoWebServiceSqlServer.Models;
+
 public class Tarefa
 {
     public long Id {get; set;}

@@ -38,12 +38,6 @@ public class CepRepositoryMemory : ICepRepository
         dados.TryGetValue(codigoCep, out model);
         return model;
     }
-    //ou utilizando LINQ
-    /*public CepModel? ConsultarPorCodigoCep(string codigoCep)
-    {
-        var queryCep = dados.Values.FirstOrDefault(cep => cep.Cep == codigoCep);
-        return queryCep;
-    }*/
 
     public IEnumerable<CepModel> ConsultarTodos()
     {

@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using DemoCepRest.Services;
 using DemoCepRest.Models;
 using DemoCepRest.DTOs;
+using Microsoft.AspNetCore.Cors;
 
 [ApiController]
 [Route("api/v1/cep")]
+[EnableCors("PermiteTudo")]
 public class CepController : ControllerBase
 {
     private readonly ILogger<CepController> _logger;
@@ -40,15 +42,16 @@ public class CepController : ControllerBase
         return CepModel.ParaDTO(cep);
     }
 
-    //PUT ou POST .../api/v1/cep o DFTO vem do corpo da requisição
+    //POST .../api/v1/cep
     [HttpPost]
-    public ActionResult<CepDTO> Post(CepDTO cepDTO)
+    public ActionResult<CepDTO> Post(CepDTO cepDto)
     {
-        CepModel? cepAtual = _cepRepository.ConsultarPorCodigoCep(cepDTO.Cep);
+        CepModel? cepAtual = _cepRepository.ConsultarPorCodigoCep(cepDto.Cep);
         if (cepAtual != null) {
-            return Problem("Cep já existe na base de dados.");
+            //Mensagem de falha
+            return Problem("Cep já existe na base de dados");
         }
-        CepModel cepNovo = _cepRepository.Cadastrar(CepModel.ParaModel(cepDTO));
-        return CreatedAtAction(nameof(GetPorCodigo), new {codigocep = cepNovo.Cep}, CepModel.ParaDTO(cepNovo));
+        CepModel cepNovo = _cepRepository.Cadastrar(CepModel.ParaModel(cepDto));
+        return CreatedAtAction(nameof(GetPorCodigo), new {codigoCep = cepNovo.Cep}, CepModel.ParaDTO(cepNovo));
     }
 }
