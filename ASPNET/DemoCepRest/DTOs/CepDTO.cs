@@ -1,7 +1,10 @@
+//define a estrutura dos dados para transferência
+
 namespace DemoCepRest.DTOs;
 
 using System.ComponentModel.DataAnnotations;
 
+//valida o formato de cada dado com expressões regulares e retorna mensagem de erro se não estiver de acordo
 public class CepDTO
 {
     [RegularExpression(@"^\d{8}$", ErrorMessage = "Cep deve ter exatamente 8 dígitos")]

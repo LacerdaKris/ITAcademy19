@@ -1,8 +1,12 @@
+//ponto de entrada da aplicação. É responsável por construir e configurar o host da web
+
+//inclui o uso dos arquivos em "services"
 using DemoCepRest.Services;
 
+//cria um objeto, args p/ aceitar argumentos de linha de comando durante a execução do app
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//serviço de política CORS sendo definida, permitindo qualquer origem, método e cabeçalho
 builder.Services.AddCors(options => {
     options.AddPolicy("PermiteTudo", policy => {
         policy.AllowAnyOrigin()
@@ -11,15 +15,20 @@ builder.Services.AddCors(options => {
     });
 });
 
+//o serviço ICepRepository é registrado. Singleton é criado apenas uma vez e compartilhado entre todas as solicitações. CepRepositoryMemory é o repositório de memória para lidar com informações de CEP
 builder.Services.AddSingleton<ICepRepository, CepRepositoryMemory>();
+
+//controladores p/ lidar com as solicitações HTTP e retornar respostas apropriadas
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+//serviços p/ geração automática de documentação interativa para os endpoints da API. Descreve as rotas, parâmetros e respostas
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//cria a instância da aplicação web
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//configura o pipeline da requisição HTTP.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,4 +43,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//o app é executado e começa a aguardar solicitações HTTP
 app.Run();
