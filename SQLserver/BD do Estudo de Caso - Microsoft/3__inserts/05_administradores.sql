@@ -1,0 +1,10 @@
+insert into administradores values (1,'3');
+insert into administradores values (20,'3');
+insert into administradores values (45,'3');
+insert into administradores values (74,'9');
+insert into administradores values (89,'6');
+insert into administradores values (104,'8');
+insert into administradores values (260,'5');
+insert into administradores values (277,'2');
+insert into administradores values (281,'7');
+insert into administradores values (282,'2');
