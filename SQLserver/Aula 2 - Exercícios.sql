@@ -1,4 +1,4 @@
--- adiciona checagem de dominio
+-- Checagem de dominio
 alter table veiculos
 add constraint CK_KM check (km >= 0);
 
