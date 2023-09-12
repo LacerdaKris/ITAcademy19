@@ -1,8 +1,5 @@
 import { ByteLengthQueuingStrategy } from "stream/web";
 
-let saudacao: string = "Alô, mundo";
-console.log(saudacao);
-
 //Imprimir os números pares definidos por um intervalo de valores inteiros não-negativos utilizando versões com for e while.
 let numeros: number[] = [];
 let contador: number = 0;
@@ -78,3 +75,28 @@ function frequencia(array: Array<number>): Map<number, number> {
 }
 let inteiros: number[] = [2, 2, 3, 4, 5, 5, 5];
 console.log(frequencia(inteiros));
+
+//Chamando métodos da classe Cofrinho que herda da classe Moedas e gerar json
+import { Cofrinho } from "./cofrinho";
+import * as fs from "node:fs";
+
+Cofrinho.adicionar(new Cofrinho(2, "centavos"));
+Cofrinho.adicionar(new Cofrinho(10, "centavos"));
+Cofrinho.adicionar(new Cofrinho(10, "centavos"));
+Cofrinho.adicionar(new Cofrinho(50, "centavos"));
+
+const json = JSON.stringify(Cofrinho.moedas);
+try {
+  fs.writeFileSync("dados.json", json);
+} catch (error) {
+  console.error("Falha de escrita no arquivo");
+  console.error((error as Error).message);
+}
+
+console.log("Total em moedas no cofrinho:", Cofrinho.calcularTotal());
+
+const menor = Cofrinho.menorMoeda(Cofrinho.moedas);
+console.log("Menor moeda no cofrinho:", menor);
+const moedaEncontrada = Cofrinho.moedas.find((moeda) => moeda.valor === menor);
+console.log(moedaEncontrada);
+console.log(Cofrinho.qtdMoedas(Cofrinho.moedas));
