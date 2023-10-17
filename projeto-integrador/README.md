@@ -44,6 +44,7 @@ Uma empresa aluga equipamentos de informática para outras empresas clientes, a 
 Execute um de cada vez:
 
 - cd Inforental
+- abrir SQL Server Management com conexão local
 - dotnet ef database update
 - No arquivo InfoRentalContext.cs da pasta Services, apagar as duas barras para descomentar o //AdicionarDadosIniciais(), e rodar o comando novamente: dotnet ef database update
 - dotnet run
